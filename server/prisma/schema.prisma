@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://aratabasum1503:z0CP1WgXM80lofHt@cluster0.atciubv.mongodb.net/Stamp"
+}
+
+model Stamp {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  date           DateTime?
+  branch         String?  @default("")
+  name           String?  @default("")
+  documentType   String?  @default("")
+  authorizer     String?  @default("")
+  documentName   String?  @default("")
+  kindOfStamp    String?  @default("")
+  numberOfStamp  Int?
+  reason         String?  @default("")
+  approvalDate   DateTime?
+  approver       String?  @default("") 
+  approvedStatus Boolean? @default(false)
+
+  @@map("stamps")
+}
+
+model Employee {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  easyproID      Int      @unique
+  name           String?  @default("")
+  business_name  String?  @default("")
+  dept           String?  @default("")
+  group          String?  @default("")
+  team           String?  @default("")
+  location       String?  @default("")
+ 
+  @@map("employees")
+}
+
+model Login {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  easyproID Int
+  password  String   @default("")
+  
+  @@map("logins")
+}
+
+
+

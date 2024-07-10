@@ -1,0 +1,111 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.history-page-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.history-container {
+  position: relative;
+  padding: 20px;
+  min-height: 100%; /* Ensure the container takes at least 100% of viewport height */
+}
+
+.home-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white; /* Changed text color to black */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.logo-container.top-left {
+  max-width: 100%;
+  height: auto;
+}
+
+.home-button.top-right {
+  top: 7%;
+  right: 63px;
+}
+
+.home-button svg {
+  margin-right: 8px;
+}
+.export-button {
+  position: absolute;
+  right: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  width: fit-content; /* Adjusted width */
+  top: 7%;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button {
+  position: absolute;
+  right: 17%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  width: fit-content; /* Adjusted width */
+  top: 7%;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer; /* Ensure proper text alignment */
+}
+
+.history-table-container {
+  margin-top: 50px; /* Adjust top margin to avoid overlap with the logos */
+}
+
+.history-table {
+  width: 100%; /* Set table width to 100% */
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f5faff;
+  border-radius: 8px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: black; /* Changed text color to black */
+}
+
+.history-table th {
+  background-color: #c1d8f0;
+  font-weight: bold;
+}
+
+.history-table tbody tr:nth-child(odd) {
+  background-color: #f0f0f0; /* Changed odd row color */
+}
+
+.history-table tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Changed even row color */
+}
+
+.history-table tbody tr:hover {
+  background-color: #e0e0e0; /* Changed hover color */
+}

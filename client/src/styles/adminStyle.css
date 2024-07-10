@@ -1,0 +1,115 @@
+.admin-container {
+  position: relative;
+  padding: 20px;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.home-button {
+  position: absolute;
+  right: 0.9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 11px;
+  width: fit-content; /* Adjusted width */
+  top: 0.5%;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.home-button svg {
+  margin-right: 8px;
+}
+
+.logo-container {
+  position: relative;
+  z-index: 2;
+}
+
+.logo-container img {
+  max-width: 250px; /* Adjust logo width */
+  max-height: 80px; /* Adjust logo height */
+  height: auto;
+}
+
+.admin-table-container {
+  width: 100%;
+  max-width: 1850px;
+  overflow-x: auto;
+  margin: 60px auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f5faff;
+  border-radius: 8px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: black;
+}
+
+.admin-table th {
+  background-color: #c1d8f0;
+  font-weight: bold;
+}
+
+.admin-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.passcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.passcode-container h2 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.passcode-container input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.passcode-container button {
+  padding: 10px 20px;
+  background-color: darkblue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.passcode-container button:hover {
+  background-color: navy;
+}

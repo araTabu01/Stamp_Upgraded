@@ -1,0 +1,114 @@
+.form-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(90vh - 5vh); /* Subtract header height from viewport height */
+  margin-top: 5vh; /* Add margin to the top to prevent collision with header */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: lightblue;
+  color: grey;
+  width: 100%;
+  height: 5vh;
+  box-sizing: border-box; /* Ensure padding and border are included in the total width and height */
+}
+
+.logo img {
+  max-height: 40px;
+}
+
+.home-button {
+  position: static;
+  top: 5px;
+  right: 20px;
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.home-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Adjusted height to match viewport height */
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px); /* Add blur effect */
+  z-index: -1; /* Push the background behind the form */
+}
+
+.request-form {
+  background-color: #f0f4f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  z-index: 1; /* Ensure the form is above the background */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: black; /* Change label color to black */
+}
+
+input[type="date"],
+input[type="text"],
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 8px; /* Adjusted margin to match label margin */
+}
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E")
+    no-repeat right 10px center/8px 10px;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #29b6f6, #03a9f4);
+}

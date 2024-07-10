@@ -1,0 +1,8 @@
+export const FETCH_PROFILE = "FETCH_PROFILE";
+export const LOADING = "LOADING";
+export const FETCH_SINGLE_USER_INFO = "FETCH_SINGLE_USER_INFO";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAILS";
+
+export const SUBMIT_STAMP = "SUBMIT_STAMP";
+export const FETCH_STAMP = "FETCH_STAMP";

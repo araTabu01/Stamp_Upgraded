@@ -1,0 +1,171 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: lightblue;
+  color: grey;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  position: relative; /* Ensure relative positioning for pseudo-element */
+  color: white; /* Set text color to contrast with background */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../Assets//home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: blur(10px); /* Adjust the blur intensity as needed */
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
+.content {
+  padding: 20px;
+  margin-left: 80px; /* Adjust based on menu width */
+}
+
+.logo img {
+  height: 40px;
+}
+
+.menu-icon {
+  cursor: pointer;
+  position: relative;
+}
+
+.menu-toggle {
+  width: 25px;
+  height: 3px;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+  transition: transform 0.3s ease;
+  /* Adjust positioning */
+  position: absolute;
+  top: 50%;
+  right: 20px; /* Adjust distance from right */
+  transform: translate(0, -50%);
+}
+
+.menu-toggle.open .line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open .line:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open .line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Add this section to your existing style */
+.menu {
+  background-color: lightgrey;
+  color: #333;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  font-family: "Arial", sans-serif; /* Choose a professional font */
+}
+
+.menu.open {
+  transform: translateX(0);
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu li {
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.menu li:hover {
+  color: #f39c12; /* Change color on hover */
+}
+
+.menu li .fa-icon {
+  margin-right: 10px; /* Add space between icon and text */
+}
+
+.menu li:last-child {
+  margin-bottom: 0; /* Remove margin from last item for consistency */
+}
+
+.menu li {
+  border-bottom: 5px solid #ccc; /* Add border between menu items */
+  padding-bottom: 30px; /* Add padding to bottom of menu items */
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-wrapper {
+  width: 30%; /* Adjust width as needed */
+  margin: 15px auto; /* Center-align horizontally */
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0.1, 0.3, 0.5, 1);
+  position: relative; /* Required for absolute positioning of background */
+}
+
+.image-wrapper:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7; /* Adjust the opacity as per your preference */
+  filter: blur(5px); /* Adjust the blur effect as per your preference */
+}
+
+.image-wrapper img {
+  width: 50%;
+  border-radius: 8px;
+  position: relative; /* Ensure image appears above the background */
+  z-index: 1; /* Ensure image appears above the background */
+}
+
+.content-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: black;
+  padding: 30px;
+  background-color: lightblue;
+  height: 100%; /* Ensure the content-info expands to fill the container */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure even spacing between content and bottom */
+}

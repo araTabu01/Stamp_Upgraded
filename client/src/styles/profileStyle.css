@@ -1,0 +1,89 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  height: 150vh;
+  position: relative;
+  background-image: url("../Assets/profile.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: lightblue;
+  color: grey;
+}
+
+.logo img {
+  max-height: 40px;
+}
+
+.home-button {
+  position: sticky;
+  top: 4px;
+  right: 20px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.home-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.user-profile {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+  font-size: larger;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.profile-content {
+  padding: 10px 20px;
+  color: black;
+  font-size: larger;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.profile-info {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.profile-label {
+  font-weight: bold;
+  width: 120px;
+}
+
+.profile-value {
+  flex-grow: 1;
+}
