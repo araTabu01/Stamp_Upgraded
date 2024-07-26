@@ -18,10 +18,6 @@ export const fetch_single_user_info = () => async (dispatch) => {
   try {
     dispatch({ type: actionType.LOADING });
     const response = await api.getSingleUserInfo();
-    console.log(
-      "The response received in the single user info actions is",
-      response
-    );
     dispatch({
       type: actionType.FETCH_SINGLE_USER_INFO,
       data: response,
@@ -34,12 +30,8 @@ export const fetch_single_user_info = () => async (dispatch) => {
 export const submitStamp = (stampData) => async (dispatch) => {
   try {
     dispatch({ type: actionType.LOADING });
-    console.log(
-      "The received stamp data in the submit stamp action is ",
-      stampData
-    );
     const response = await api.submit_stamp({ stampData });
-    console.log(response);
+
     dispatch({ type: actionType.SUBMIT_STAMP });
   } catch (error) {
     console.log(error);
@@ -62,7 +54,6 @@ export const deleteStamp =
   async (dispatch) => {
     try {
       dispatch({ type: actionType.LOADING });
-      console.log("The received id is ", id);
       await api.delete_stamp({ id });
     } catch (error) {
       console.log(error);

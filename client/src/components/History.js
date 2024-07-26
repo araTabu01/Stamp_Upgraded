@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FaHome, FaFileExcel } from "react-icons/fa";
-import Logo from "../Assets/logo.png";
-import { Link } from "react-router-dom";
+import { FaFileExcel } from "react-icons/fa"; // Removed FaHome as it's not used anymore
+import logoImage from "../Assets/logo.png";
 import "../styles/historyStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStamp, fetchStamp } from "../actions/crud";
 import { formatDate } from "../utils/formatDate";
 import { exportToExcel } from "../utils/excelUtils";
+import Menu from "./Menu"; // Import the Menu component
 
 const History = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ const History = () => {
   }, [dispatch]);
 
   const data = useSelector((state) => state.crud.stampData);
-  console.log("The received data is ", data);
 
   const handleDelete = (id) => {
     dispatch(deleteStamp({ id: id }));
@@ -54,29 +53,32 @@ const History = () => {
   };
 
   return (
-    <div className="history-page-container">
+    <div>
+      <header className="header">
+        <div className="logo">
+          <a
+            href="https://www.tel-mic.co.jp/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={logoImage} alt="Your Logo" />
+          </a>
+        </div>
+        <div className="header-title">
+          <h1>履歴</h1>
+        </div>
+      </header>
+      <Menu />
       <div className="history-container">
-        <a
-          href="https://www.tel-mic.co.jp/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="logo-container top-left"
-        >
-          <img src={Logo} alt="Your Logo" className="logo" />
-        </a>
-        <Link to="/home" className="home-button top-right">
-          <FaHome size={30} />
-        </Link>
-
         <div className="button-container">
           <button
             onClick={() => setToggleDelete((prev) => !prev)}
             className="delete-button"
           >
-            {toggleDelete ? "Return" : "Delete"}
+            {toggleDelete ? "戻る" : "消去する"}
           </button>
           <button className="export-button" onClick={handleExportExcel}>
-            <FaFileExcel size={30} />
+            <FaFileExcel size={38} />
           </button>
         </div>
 

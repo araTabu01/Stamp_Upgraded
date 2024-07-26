@@ -3,7 +3,31 @@ body,
 #root {
   height: 100%;
 }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 19px;
+  background-color: lightblue;
+  color: grey;
+  position: sticky;
+}
 
+.logo {
+  flex: 1;
+}
+
+.header-title {
+  flex: 2;
+  text-align: center;
+  margin-right: 25%; /* Adjust this value to move the title to the right */
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
 .history-page-container {
   height: 100%;
   overflow-y: auto;
@@ -15,43 +39,20 @@ body,
   min-height: 100%; /* Ensure the container takes at least 100% of viewport height */
 }
 
-.home-button {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-  color: white; /* Changed text color to black */
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  text-decoration: none;
-  z-index: 1;
-}
-
 .logo-container.top-left {
   max-width: 100%;
   height: auto;
 }
 
-.home-button.top-right {
-  top: 7%;
-  right: 63px;
-}
-
-.home-button svg {
-  margin-right: 8px;
-}
 .export-button {
   position: absolute;
-  right: 10%;
+  right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 15px;
+  padding: 4px 14px;
   width: fit-content; /* Adjusted width */
-  top: 7%;
+  top: 3%;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;
@@ -60,13 +61,13 @@ body,
 
 .delete-button {
   position: absolute;
-  right: 17%;
+  right: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 15px;
+  padding: 10px 20px;
   width: fit-content; /* Adjusted width */
-  top: 7%;
+  top: 3.5%;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;

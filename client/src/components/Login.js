@@ -31,7 +31,7 @@ const Login = () => {
         localStorage.setItem("userId", JSON.stringify(user.id));
 
         // Redirect to home page or perform any other action
-        navigate("/home");
+        navigate("/request");
       }
     } catch (error) {
       console.error("Login failed", error);
@@ -68,7 +68,7 @@ const Login = () => {
         <div className="input-container">
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder="パスワード"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

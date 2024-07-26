@@ -2,7 +2,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 9px 19px;
   background-color: lightblue;
   color: grey;
 }
@@ -44,84 +44,6 @@ body::before {
   position: relative;
 }
 
-.menu-toggle {
-  width: 25px;
-  height: 3px;
-  background-color: grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 5px 0;
-  transition: transform 0.3s ease;
-  /* Adjust positioning */
-  position: absolute;
-  top: 50%;
-  right: 20px; /* Adjust distance from right */
-  transform: translate(0, -50%);
-}
-
-.menu-toggle.open .line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.menu-toggle.open .line:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.open .line:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* Add this section to your existing style */
-.menu {
-  background-color: lightgrey;
-  color: #333;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 250px;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-  font-family: "Arial", sans-serif; /* Choose a professional font */
-}
-
-.menu.open {
-  transform: translateX(0);
-}
-
-.menu ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.menu li {
-  margin-bottom: 20px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.menu li:hover {
-  color: #f39c12; /* Change color on hover */
-}
-
-.menu li .fa-icon {
-  margin-right: 10px; /* Add space between icon and text */
-}
-
-.menu li:last-child {
-  margin-bottom: 0; /* Remove margin from last item for consistency */
-}
-
-.menu li {
-  border-bottom: 5px solid #ccc; /* Add border between menu items */
-  padding-bottom: 30px; /* Add padding to bottom of menu items */
-}
-
 .image-container {
   display: flex;
   flex-wrap: wrap;
@@ -153,7 +75,7 @@ body::before {
 
 .image-wrapper img {
   width: 50%;
-  border-radius: 8px;
+  border-radius: 100px;
   position: relative; /* Ensure image appears above the background */
   z-index: 1; /* Ensure image appears above the background */
 }

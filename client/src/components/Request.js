@@ -1,6 +1,4 @@
-// request.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import backgroundImage from "../Assets/request.jpg";
 import { useDispatch } from "react-redux";
 import {
@@ -10,7 +8,6 @@ import {
   authorizerNames,
 } from "../enums/details.js";
 import logoImage from "../Assets/logo.png";
-import { FaHome } from "react-icons/fa";
 import {
   mainbranch_name,
   tokoname_names,
@@ -21,16 +18,26 @@ import {
 } from "../enums/details.js";
 import "../styles/requestStyle.css"; // Import CSS file
 import { submitStamp } from "../actions/crud.js";
+import Menu from "../components/Menu"; // Import the Menu component
 
 const RequestForm = () => {
+  // Function to get the current date in the format yyyy-mm-dd
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const [formData, setFormData] = useState({
-    date: "",
+    date: getCurrentDate(),
     name: "",
     branch: "",
     documentType: "",
     documentName: "",
     kindOfStamp: "",
-    numberOfStamp: 0,
+    numberOfStamp: 1, // Set initial value to 1
     reason: "",
     authorizer: "",
   });
@@ -87,18 +94,16 @@ const RequestForm = () => {
       return;
     }
 
-    console.log("The form data submitted in request page is ", formData);
-
     dispatch(submitStamp(formData));
 
     setFormData({
-      date: "",
+      date: getCurrentDate(),
       name: "",
       branch: "",
       documentType: "",
       documentName: "",
       kindOfStamp: "",
-      numberOfStamp: 0,
+      numberOfStamp: 1, // Reset to initial value 1
       reason: "",
       authorizer: "",
     });
@@ -117,12 +122,11 @@ const RequestForm = () => {
             <img src={logoImage} alt="Your Logo" />
           </a>
         </div>
-        <div className="home-button-container">
-          <Link to="/home" className="home-button">
-            <FaHome size={30} />
-          </Link>
+        <div className="header-title">
+          <h1>押印依頼をする</h1>
         </div>
       </header>
+      <Menu /> {/* Add the Menu component */}
       <div className="form-container">
         <div
           className="background-image"
@@ -131,13 +135,7 @@ const RequestForm = () => {
         <form className="request-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>日付:</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) =>
-                setFormData({ ...formData, date: e.target.value })
-              }
-            />
+            <input type="date" value={date} readOnly />
           </div>
           <div className="form-group">
             <label>支店:</label>
@@ -199,7 +197,7 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>印章種類</label>
+            <label>印章種類:</label>
             <select
               value={kindOfStamp}
               onChange={(e) =>
@@ -235,7 +233,7 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>承認日:</label>
+            <label>承認者:</label>
             <select
               value={authorizer}
               onChange={(e) =>

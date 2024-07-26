@@ -20,10 +20,6 @@ export default (state = initialState, action) => {
       };
     }
     case actionType.FETCH_SINGLE_USER_INFO: {
-      console.log(
-        "It has triggered the single user info reducer. and the data is ",
-        action.data
-      );
       return {
         ...state,
         singleUserData: action.data,
@@ -39,7 +35,6 @@ export default (state = initialState, action) => {
       };
     }
     case actionType.FETCH_STAMP: {
-      // return console.log("Hello World");
       const data = action.data;
       return {
         ...state,

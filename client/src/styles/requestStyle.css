@@ -7,38 +7,30 @@
   margin-top: 5vh; /* Add margin to the top to prevent collision with header */
 }
 
-header {
+.header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  justify-content: space-between;
+  padding: 9px 19px;
   background-color: lightblue;
   color: grey;
-  width: 100%;
-  height: 5vh;
-  box-sizing: border-box; /* Ensure padding and border are included in the total width and height */
+  position: sticky;
 }
 
-.logo img {
-  max-height: 40px;
+.logo {
+  flex: 1;
 }
 
-.home-button {
-  position: static;
-  top: 5px;
-  right: 20px;
-  padding: 5px 10px;
-  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
-  display: flex;
-  align-items: center;
+.header-title {
+  flex: 2;
+  text-align: center;
+  margin-right: 25%; /* Adjust this value to move the title to the right */
 }
 
-.home-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+.header-title h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
 }
 
 body {

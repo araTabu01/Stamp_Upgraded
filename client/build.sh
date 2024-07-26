@@ -1,0 +1,1 @@
+docker build -t aratabu01/stamp-frontend:v1 .

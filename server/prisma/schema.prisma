@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://aratabasum1503:z0CP1WgXM80lofHt@cluster0.atciubv.mongodb.net/Stamp"
+  url      = env("DATABASE_URL")
 }
 
 model Stamp {

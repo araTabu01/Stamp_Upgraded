@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaHome, FaTrash } from "react-icons/fa";
+//import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
 import logoImage from "../Assets/logo.png";
 import "../styles/adminStyle.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchStamp } from "../actions/crud";
 import { formatDate } from "../utils/formatDate";
 import { update_stamp } from "../api";
+import Menu from "../components/Menu"; // Import the Menu component
 
 const Admin = () => {
   const [formDataList, setFormDataList] = useState([]);
@@ -58,7 +59,7 @@ const Admin = () => {
         approvalDate: value,
       };
 
-      // await axios.patch(`http://localhost:5010/api/stamps`, {
+      // await axios.patch(http://localhost:5010/api/stamps, {
       //   id: updatedItem.id,
       //   approvalDate: value,
       // });
@@ -82,75 +83,77 @@ const Admin = () => {
   };
 
   return (
-    <div className="admin-container">
-      <div className="logo">
-        <a
-          href="https://www.tel-mic.co.jp/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="logo-container"
-        >
-          <img src={logoImage} alt="Your Logo" />
-        </a>
-      </div>
-      <div className="home-button-container">
-        <Link to="/home" className="home-button">
-          <FaHome size={30} />
-        </Link>
-      </div>
-      <div className="admin-table-container">
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>日付</th>
-              <th>支店</th>
-              <th>依頼者</th>
-              <th>種類</th>
-              <th>書類名</th>
-              <th>印章種類</th>
-              <th>押印数</th>
-              <th>理由</th>
-              <th>承認日</th>
-              <th>承認者</th>
-              <th>取り除く</th>
-            </tr>
-          </thead>
-          <tbody>
-            {formDataList && formDataList.length > 0 ? (
-              formDataList.map((formData, index) => (
-                <tr key={index}>
-                  <td>{formatDate(formData.date)}</td>
-                  <td>{formData.branch}</td>
-                  <td>{formData.name}</td>
-                  <td>{formData.documentType}</td>
-                  <td>{formData.documentName}</td>
-                  <td>{formData.kindOfStamp}</td>
-                  <td>{formData.numberOfStamp}</td>
-                  <td>{formData.reason}</td>
-                  <td>
-                    <input
-                      type="date"
-                      value={formData.approvalDate || ""}
-                      onChange={(event) => handleDateChange(index, event)}
-                      disabled={formData.approvalDate || formData.isApproved} // Disable if already set or approved
-                    />
-                  </td>
-                  <td>{formData.authorizer}</td>
-                  <td>
-                    <FaTrash
-                      onClick={() => handleDeleteRow(index)}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
+    <div>
+      <header className="header">
+        <div className="logo">
+          <a
+            href="https://www.tel-mic.co.jp/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={logoImage} alt="Your Logo" />
+          </a>
+        </div>
+        <div className="header-title">
+          <h1> 管理者</h1>
+        </div>
+      </header>
+      <Menu /> {/* Add the Menu component */}
+      <div className="admin-container">
+        <div className="admin-table-container">
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan="13">データなし</td>
+                <th>日付</th>
+                <th>支店</th>
+                <th>依頼者</th>
+                <th>種類</th>
+                <th>書類名</th>
+                <th>印章種類</th>
+                <th>押印数</th>
+                <th>理由</th>
+                <th>承認日</th>
+                <th>承認者</th>
+                <th>取り除く</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {formDataList && formDataList.length > 0 ? (
+                formDataList.map((formData, index) => (
+                  <tr key={index}>
+                    <td>{formatDate(formData.date)}</td>
+                    <td>{formData.branch}</td>
+                    <td>{formData.name}</td>
+                    <td>{formData.documentType}</td>
+                    <td>{formData.documentName}</td>
+                    <td>{formData.kindOfStamp}</td>
+                    <td>{formData.numberOfStamp}</td>
+                    <td>{formData.reason}</td>
+                    <td>
+                      <input
+                        type="date"
+                        value={formData.approvalDate || ""}
+                        onChange={(event) => handleDateChange(index, event)}
+                        disabled={formData.approvalDate || formData.isApproved} // Disable if already set or approved
+                      />
+                    </td>
+                    <td>{formData.authorizer}</td>
+                    <td>
+                      <FaTrash
+                        onClick={() => handleDeleteRow(index)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="11">データなし</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
