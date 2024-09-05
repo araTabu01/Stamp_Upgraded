@@ -1,32 +1,23 @@
-.menu-toggle {
-  width: 25px;
-  height: 3px;
-  background-color: grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 5px 0;
-  transition: transform 0.3s ease;
-  /* Adjust positioning */
+/* Adjust the menu icon style to accommodate the home icon */
+.menu-icon {
   position: absolute;
-  top: -25px;
-  right: 20px; /* Adjust distance from right */
-  transform: translate(0, -50%);
+  top: 20px; /* Adjust as needed to position the home icon */
+  right: 20px; /* Adjust as needed for right alignment */
+  cursor: pointer;
+  z-index: 1100; /* Ensure it appears above other content */
 }
 
-.menu-toggle.open .line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+.home-icon {
+  font-size: 24px; /* Adjust icon size */
+  color: grey; /* Initial icon color */
+  transition: color 0.3s ease; /* Smooth color change */
 }
 
-.menu-toggle.open .line:nth-child(2) {
-  opacity: 0;
+.home-icon:hover {
+  color: #29b6f6; /* Change color on hover for interaction feedback */
 }
 
-.menu-toggle.open .line:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* Add this section to your existing style */
+/* Existing menu styling */
 .menu {
   background-color: lightgrey;
   color: #333;
@@ -39,8 +30,8 @@
   transform: translateX(100%);
   transition: transform 0.3s ease;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-  font-family: "Arial", sans-serif; /* Choose a professional font */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
 }
 
 .menu.open {
@@ -57,21 +48,18 @@
   cursor: pointer;
   font-size: 18px;
   transition: color 0.3s ease;
+  border-bottom: 5px solid #ccc;
+  padding-bottom: 30px;
 }
 
 .menu li:hover {
-  color: #f39c12; /* Change color on hover */
+  color: #f39c12;
 }
 
 .menu li .fa-icon {
-  margin-right: 10px; /* Add space between icon and text */
+  margin-right: 10px;
 }
 
 .menu li:last-child {
-  margin-bottom: 0; /* Remove margin from last item for consistency */
-}
-
-.menu li {
-  border-bottom: 5px solid #ccc; /* Add border between menu items */
-  padding-bottom: 30px; /* Add padding to bottom of menu items */
+  margin-bottom: 0;
 }

@@ -7,29 +7,24 @@ const prisma = new PrismaClient();
 export const login = async (req: Request, res: Response) => {
   const { easyproID, password } = req.body;
 
-  try {
-    // Find user by easyproID
-    const user = await prisma.login.findFirst({
-      where: { easyproID: Number(easyproID) },
-    });
+  // Find user by easyproID
+  const user = await prisma.login.findFirst({
+    where: { easyproID: Number(easyproID) },
+  });
 
-    if (!user) {
-      return res.json({ error: "IDまたはパスワードが間違っています！" });
-    }
-
-    if (user.password === null) {
-      return res.json({ error: "IDまたはパスワードが間違っています！" });
-    }
-
-    // Compare provided password with stored hash
-    if (!user || password !== user.password) {
-      return res.json({ error: "IDまたはパスワードが間違っています！" });
-    }
-
-    // Password matches, user authenticated successfully
-    res.json({ user });
-  } catch (error) {
-    console.error("Error during login process: ", error);
-    res.status(500).json({ error: "Internal server error" });
+  if (!user) {
+    return res.json({ error: "IDまたはパスワードが間違っています！" });
   }
+
+  if (user.password === null) {
+    return res.json({ error: "IDまたはパスワードが間違っています！" });
+  }
+
+  // Compare provided password with stored hash
+  if (!user || password !== user.password) {
+    return res.json({ error: "IDまたはパスワードが間違っています！" });
+  }
+
+  // Password matches, user authenticated successfully
+  res.json({ user });
 };

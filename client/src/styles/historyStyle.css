@@ -52,7 +52,7 @@ body,
   justify-content: center;
   padding: 4px 14px;
   width: fit-content; /* Adjusted width */
-  top: 3%;
+  top: 1%;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;
@@ -67,7 +67,7 @@ body,
   justify-content: center;
   padding: 10px 20px;
   width: fit-content; /* Adjusted width */
-  top: 3.5%;
+  top: 1%;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;

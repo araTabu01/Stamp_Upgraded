@@ -1,47 +1,33 @@
+/* General reset for HTML and body to manage scroll */
+html,
+body {
+  height: 100%; /* Make sure the body takes the full height */
+  margin: 0; /* Reset default margin */
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+}
+
+/* Admin container to grow with content */
 .admin-container {
   position: relative;
   padding: 20px;
-  max-height: 100vh;
-  overflow-y: auto;
-}
-
-.home-button {
-  position: absolute;
-  right: 0.9%;
+  min-height: 100vh; /* Ensure it at least covers the viewport */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 11px;
-  width: fit-content; /* Adjusted width */
-  top: 0.5%;
-  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-.home-button svg {
-  margin-right: 8px;
-}
-
-.logo-container {
-  position: relative;
-  z-index: 2;
-}
-
-.logo-container img {
-  max-width: 250px; /* Adjust logo width */
-  max-height: 80px; /* Adjust logo height */
-  height: auto;
-}
-
+/* Make sure the table container can grow and scroll properly */
 .admin-table-container {
+  flex: 1; /* Allow this container to take up remaining space */
   width: 100%;
   max-width: 1850px;
-  overflow-x: auto;
-  margin: 60px auto;
+  overflow-x: auto; /* Allow horizontal scrolling for wide tables */
+  overflow-y: auto; /* Ensure this container can scroll if needed */
+  margin: 20px 0; /* Adjust margins for better positioning */
+  box-sizing: border-box;
 }
 
+/* Style the table itself */
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -71,6 +57,7 @@
   background-color: #e0e0e0;
 }
 
+/* Passcode container styling */
 .passcode-container {
   display: flex;
   flex-direction: column;
@@ -112,4 +99,36 @@
 
 .passcode-container button:hover {
   background-color: navy;
+}
+
+/* Home button styling */
+.home-button {
+  position: absolute;
+  right: 0.9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 11px;
+  width: fit-content;
+  top: 0.5%;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.home-button svg {
+  margin-right: 8px;
+}
+
+/* Logo container styling */
+.logo-container {
+  position: relative;
+  z-index: 2;
+}
+
+.logo-container img {
+  max-width: 250px;
+  max-height: 80px;
+  height: auto;
 }

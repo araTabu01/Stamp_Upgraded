@@ -157,7 +157,7 @@
   "松永真帆",
   "米澤采莉",
   "大西未夏",
-];*/
+];
 
 const mainbranch_name = [
   "春日井 尚人",
@@ -348,7 +348,7 @@ const nagoya_names = [
   "林 沙彩",
   "伊藤 南美",
   "内山 莉々菜",
-];
+]; 
 
 const tokyo_names = [
   "冨田 幸弘",
@@ -356,9 +356,9 @@ const tokyo_names = [
   "二村 裕香乃",
   "犬塚 ちはる",
   "今田 麻友",
-];
+];*/
 
-const branches = ["刈谷", "常滑", "知立", "島根", "東京", "名古屋"];
+const branches = ["刈谷", "常滑", "知立", "島根", "東京", "名古屋", "博多"];
 const documentTypes = [
   "契約書",
   "申請書",
@@ -368,24 +368,24 @@ const documentTypes = [
   "その他",
 ];
 
-const stamps = ["実印", "銀行印", "認印", "角印", "社判"];
+const stamps = ["管理者", "実印", "銀行印", "認印", "角印"];
 const authorizerNames = [
-  " 田中 秀範",
-  "中川 幸作",
-  "長谷川 良",
-  "筧 光能",
-  "今井 裕人",
-  "柴田 侑",
+  "田中秀範",
+  "筧光能",
+  "長谷川良",
+  "中川幸作",
+  "柴田侑",
+  "丹羽一朗",
+  "今井裕人",
+  "籾山陽平",
+  "澤邊香穂",
+  "山根正人",
+  "中野訓子",
+  "冨田幸弘",
 ];
 module.exports = {
   branches,
   documentTypes,
   stamps,
   authorizerNames,
-  mainbranch_name,
-  chiryu_names,
-  tokoname_names,
-  shimane_names,
-  nagoya_names,
-  tokyo_names,
 };

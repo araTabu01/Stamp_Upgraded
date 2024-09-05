@@ -48,7 +48,7 @@ model Login {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   easyproID Int
   password  String   @default("")
-  
+  name      String?  @default("")
   @@map("logins")
 }
 

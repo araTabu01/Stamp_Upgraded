@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import backgroundImage from "../Assets/request.jpg";
 import { useDispatch } from "react-redux";
 import {
@@ -8,14 +8,6 @@ import {
   authorizerNames,
 } from "../enums/details.js";
 import logoImage from "../Assets/logo.png";
-import {
-  mainbranch_name,
-  tokoname_names,
-  chiryu_names,
-  shimane_names,
-  nagoya_names,
-  tokyo_names,
-} from "../enums/details.js";
 import "../styles/requestStyle.css"; // Import CSS file
 import { submitStamp } from "../actions/crud.js";
 import Menu from "../components/Menu"; // Import the Menu component
@@ -42,6 +34,9 @@ const RequestForm = () => {
     authorizer: "",
   });
 
+  const [filteredAuthorizers, setFilteredAuthorizers] =
+    useState(authorizerNames);
+
   const {
     date,
     name,
@@ -56,25 +51,36 @@ const RequestForm = () => {
 
   const dispatch = useDispatch();
 
-  // Define getFilteredNames function to filter names based on the selected branch
-  const getFilteredNames = () => {
-    switch (branch) {
-      case "刈谷":
-        return mainbranch_name;
-      case "常滑":
-        return tokoname_names;
-      case "知立":
-        return chiryu_names;
-      case "島根":
-        return shimane_names;
-      case "東京":
-        return tokyo_names;
-      case "名古屋":
-        return nagoya_names;
+  useEffect(() => {
+    // Update the list of authorizers based on the selected kind of stamp
+    let newAuthorizers = [];
+
+    switch (kindOfStamp) {
+      case "実印":
+      case "認印":
+        newAuthorizers = ["田中秀範", "筧光能", "長谷川良", "中川幸作"];
+        break;
+      case "銀行印":
+        newAuthorizers = [
+          "田中秀範",
+          "筧光能",
+          "長谷川良",
+          "中川幸作",
+          "中野訓子",
+        ];
+        break;
+      case "管理者":
+      case "角印":
+        newAuthorizers = authorizerNames;
+        break;
       default:
-        return [];
+        newAuthorizers = authorizerNames;
+        break;
     }
-  };
+
+    setFilteredAuthorizers(newAuthorizers);
+    setFormData({ ...formData, authorizer: "" }); // Reset the selected authorizer when kindOfStamp changes
+  }, [kindOfStamp]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -138,36 +144,15 @@ const RequestForm = () => {
             <input type="date" value={date} readOnly />
           </div>
           <div className="form-group">
-            <label>支店:</label>
-            <select
-              value={branch}
-              onChange={(e) =>
-                setFormData({ ...formData, branch: e.target.value })
-              }
-            >
-              <option value="">支店の選択</option>
-              {branches.map((branch, index) => (
-                <option key={index} value={branch}>
-                  {branch}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-group">
             <label>依頼者:</label>
-            <select
+            <input
+              type="text"
+              placeholder="依頼者の名前を入力してください"
               value={name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-            >
-              <option value="">名前を選択してください</option>
-              {getFilteredNames().map((name, index) => (
-                <option key={index} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
+            />
           </div>
           <div className="form-group">
             <label>種類:</label>
@@ -233,6 +218,22 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
+            <label>押印拠点:</label>
+            <select
+              value={branch}
+              onChange={(e) =>
+                setFormData({ ...formData, branch: e.target.value })
+              }
+            >
+              <option value="">支店の選択</option>
+              {branches.map((branch, index) => (
+                <option key={index} value={branch}>
+                  {branch}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
             <label>承認者:</label>
             <select
               value={authorizer}
@@ -241,7 +242,7 @@ const RequestForm = () => {
               }
             >
               <option value="">承認者を選択</option>
-              {authorizerNames.map((name, index) => (
+              {filteredAuthorizers.map((name, index) => (
                 <option key={index} value={name}>
                   {name}
                 </option>

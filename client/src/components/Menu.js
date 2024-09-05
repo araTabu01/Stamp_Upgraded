@@ -6,9 +6,10 @@ import {
   faUserCog,
   faSignOutAlt,
   faFileAlt, // Import the new icon
+  faHome, // Import the home icon
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import "../styles/menuStyle.css"; // Create and import the styles for the menu
+import "../styles/menuStyle.css"; // Make sure you have the appropriate styles
 
 const Menu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,11 +40,8 @@ const Menu = () => {
   return (
     <div>
       <div className="menu-icon" onClick={toggleMenu}>
-        <div className={`menu-toggle ${menuOpen ? "open" : ""}`}>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-        </div>
+        {/* Use the FontAwesome home icon */}
+        <FontAwesomeIcon icon={faHome} className="home-icon" />
       </div>
       <nav className={`menu ${menuOpen ? "open" : ""}`}>
         <ul>
@@ -59,7 +57,7 @@ const Menu = () => {
               <FontAwesomeIcon
                 icon={faClipboardList}
                 style={{ color: "black", marginRight: "5px" }}
-              />{" "}
+              />
               印鑑の種類
             </Link>
           </li>
@@ -75,7 +73,7 @@ const Menu = () => {
               <FontAwesomeIcon
                 icon={faFileAlt} // Use the new icon
                 style={{ color: "black", marginRight: "5px" }}
-              />{" "}
+              />
               押印依頼をする
             </Link>
           </li>
@@ -91,7 +89,7 @@ const Menu = () => {
               <FontAwesomeIcon
                 icon={faHistory}
                 style={{ color: "black", marginRight: "5px" }}
-              />{" "}
+              />
               履歴
             </Link>
           </li>
@@ -107,7 +105,7 @@ const Menu = () => {
               <FontAwesomeIcon
                 icon={faUserCog}
                 style={{ color: "black", marginRight: "5px" }}
-              />{" "}
+              />
               管理者
             </Link>
           </li>
@@ -118,7 +116,7 @@ const Menu = () => {
             <FontAwesomeIcon
               icon={faSignOutAlt}
               style={{ color: "black", marginRight: "5px" }}
-            />{" "}
+            />
             ログアウト
           </li>
         </ul>
