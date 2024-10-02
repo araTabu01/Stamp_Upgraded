@@ -5,6 +5,11 @@ services:
     container_name: stamp-backend
     env_file:
       - ./.env.backend
+    environment:
+      DATABASE_URL: "mongodb+srv://telmickariyab1:Rf4RttD8uJpPjlbL@telmiccluster.jyp4qxp.mongodb.net/Stamp"
+      ORIGIN1: "http://localhost:3020"
+      ORIGIN2: "http://192.168.3.69:3020"
+      PORT: 5020
     ports:
       - "5020:5020"
 
