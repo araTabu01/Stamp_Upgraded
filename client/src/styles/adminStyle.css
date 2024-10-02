@@ -6,11 +6,41 @@ body {
   overflow-y: auto; /* Allow vertical scrolling if needed */
 }
 
+/* Add this to your existing adminStyle.css file */
+
+/* Add this to your adminStyle.css */
+.greyed-out {
+  background-color: #d0d0d0; /* Light grey background */
+  color: #a0a0a0; /* Grey text color */
+  cursor: not-allowed; /* Show a not-allowed cursor */
+}
+
+.export-button {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 14px;
+  width: fit-content; /* Adjusted width */
+  top: 0.5%;
+  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-disabled {
+  background-color: #d0d0d0; /* Light grey background */
+  color: #a0a0a0; /* Grey text color */
+  cursor: not-allowed; /* Show a not-allowed cursor */
+}
+
 /* Admin container to grow with content */
 .admin-container {
   position: relative;
   padding: 20px;
-  min-height: 100vh; /* Ensure it at least covers the viewport */
+  min-height: 150vh; /* Ensure it at least covers the viewport */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -20,10 +50,10 @@ body {
 .admin-table-container {
   flex: 1; /* Allow this container to take up remaining space */
   width: 100%;
-  max-width: 1850px;
+  max-width: 2000px;
   overflow-x: auto; /* Allow horizontal scrolling for wide tables */
   overflow-y: auto; /* Ensure this container can scroll if needed */
-  margin: 20px 0; /* Adjust margins for better positioning */
+  margin: 60px 0 20px 0; /* Add top margin to move the table down */
   box-sizing: border-box;
 }
 
@@ -94,31 +124,11 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 30%;
 }
 
 .passcode-container button:hover {
   background-color: navy;
-}
-
-/* Home button styling */
-.home-button {
-  position: absolute;
-  right: 0.9%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 11px;
-  width: fit-content;
-  top: 0.5%;
-  background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.home-button svg {
-  margin-right: 8px;
 }
 
 /* Logo container styling */
@@ -131,4 +141,40 @@ body {
   max-width: 250px;
   max-height: 80px;
   height: auto;
+}
+.approve-button {
+  background-color: #4fc3f7;
+  color: white;
+  border-radius: 6px;
+  padding: 8px 10px; /* Increased padding to make the button broader */
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%; /* Ensures the button fills the cell width */
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  max-width: 250px; /* Optional: Limit the maximum width of the button */
+}
+
+.approve-button:hover {
+  background-color: #4fc3f7;
+}
+
+.approve-button:disabled {
+  background-color: #4fc3f7; /* Keep blue even when disabled */
+}
+
+.approve-button:disabled:hover {
+  background-color: #ccc;
+}
+
+.approve-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.greyed-out {
+  background-color: #d3d3d3; /* Light grey background */
+  color: #fff; /* White text color */
+  cursor: not-allowed; /* Change cursor to indicate it's not clickable */
 }

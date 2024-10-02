@@ -14,6 +14,7 @@
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express-session": "^1.18.0",
     "moment": "^2.30.1",
@@ -29,7 +30,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "export PORT=3020 && react-scripts start --host 0.0.0.0",
+    "start": "set PORT=3020 && react-scripts start --host 0.0.0.0",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

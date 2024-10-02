@@ -27,6 +27,7 @@ model Stamp {
   approvalDate   DateTime?
   approver       String?  @default("") 
   approvedStatus Boolean? @default(false)
+  substituteName String? 
 
   @@map("stamps")
 }

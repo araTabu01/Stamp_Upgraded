@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaFileExcel } from "react-icons/fa"; // Removed FaHome as it's not used anymore
+import { FaFileExcel } from "react-icons/fa";
 import logoImage from "../Assets/logo.png";
 import "../styles/historyStyle.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,6 @@ import Menu from "./Menu"; // Import the Menu component
 
 const History = () => {
   const dispatch = useDispatch();
-
   const [toggleDelete, setToggleDelete] = useState(false);
 
   useEffect(() => {
@@ -36,6 +35,7 @@ const History = () => {
         reason,
         approvalDate,
         authorizer,
+        substituteName, // Include substituteName here
       }) => ({
         date: formatDate(date),
         branch,
@@ -47,6 +47,7 @@ const History = () => {
         reason,
         approvalDate: approvalDate ? formatDate(approvalDate) : "",
         approver: authorizer,
+        substituteName, // Include substituteName in export
       })
     );
     exportToExcel(exportData);
@@ -96,6 +97,7 @@ const History = () => {
                 <th>理由</th>
                 <th>承認日</th>
                 <th>承認者</th>
+                <th>代替者名</th> {/* New column for Substitute Name */}
                 <th>状況</th>
                 {toggleDelete && <th>消去する</th>}
               </tr>
@@ -118,6 +120,8 @@ const History = () => {
                         : ""}
                     </td>
                     <td>{formData.authorizer}</td>
+                    <td>{formData.substituteName || "なし"}</td>{" "}
+                    {/* Display Substitute Name */}
                     <td>{formData.approvalDate ? "✅" : "❎"}</td>
                     {toggleDelete && (
                       <th>
@@ -130,7 +134,7 @@ const History = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="11">データなし</td>
+                  <td colSpan="12">データなし</td>
                 </tr>
               )}
             </tbody>

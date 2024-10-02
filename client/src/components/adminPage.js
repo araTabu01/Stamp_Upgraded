@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-//import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa";
+import { FaFileExcel } from "react-icons/fa";
 import logoImage from "../Assets/logo.png";
 import "../styles/adminStyle.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchStamp } from "../actions/crud";
+import { fetchStamp } from "../actions/crud"; // Removed deleteStamp action
 import { formatDate } from "../utils/formatDate";
-import { update_stamp } from "../api";
-import Menu from "../components/Menu"; // Import the Menu component
+import { update_stamp, update_substitute_name } from "../api"; // Assuming these are your API functions
+import { exportToExcel } from "../utils/excelUtils";
+import Menu from "../components/Menu";
 
 const Admin = () => {
   const [formDataList, setFormDataList] = useState([]);
@@ -20,14 +20,6 @@ const Admin = () => {
   const data = useSelector((state) => state.crud.stampData);
 
   useEffect(() => {
-    const storedFormData = localStorage.getItem("formData");
-    if (storedFormData) {
-      const parsedFormData = JSON.parse(storedFormData);
-      setFormDataList(parsedFormData);
-    }
-  }, []); // Load data from localStorage only on component mount
-
-  useEffect(() => {
     if (data && data.length > 0) {
       const mergedData = data.map((item) => {
         const localItem = formDataList.find(
@@ -37,11 +29,7 @@ const Admin = () => {
       });
       setFormDataList(mergedData);
     }
-  }, [data]); // Removed formDataList from dependency array
-
-  useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formDataList));
-  }, [formDataList]); // Store formDataList in localStorage whenever it changes
+  }, [data]);
 
   const handleDateChange = async (index, event) => {
     const { value } = event.target;
@@ -49,23 +37,12 @@ const Admin = () => {
     const currentItem = updatedFormDataList[index];
 
     if (currentItem.approvalDate) {
-      // If approvalDate is already set, do nothing
       return;
     }
 
     try {
-      const updatedItem = {
-        ...currentItem,
-        approvalDate: value,
-      };
-
-      // await axios.patch(http://localhost:5010/api/stamps, {
-      //   id: updatedItem.id,
-      //   approvalDate: value,
-      // });
-
+      const updatedItem = { ...currentItem, approvalDate: value };
       await update_stamp({ id: updatedItem.id, approvalDate: value });
-
       updatedFormDataList[index] = updatedItem;
       setFormDataList(updatedFormDataList);
     } catch (error) {
@@ -73,14 +50,77 @@ const Admin = () => {
     }
   };
 
-  const handleDeleteRow = (index) => {
-    setFormDataList((prevFormDataList) => {
-      const updatedFormDataList = prevFormDataList.filter(
-        (_, i) => i !== index
-      );
-      return updatedFormDataList;
-    });
+  const handleSubstituteNameChange = (index, event) => {
+    const { value } = event.target;
+    const updatedFormDataList = [...formDataList];
+    const currentItem = updatedFormDataList[index];
+    if (!currentItem.isSubstituteNameSaved) {
+      updatedFormDataList[index] = { ...currentItem, substituteName: value };
+      setFormDataList(updatedFormDataList);
+    }
   };
+
+  const handleApproveRow = async (index) => {
+    const currentItem = formDataList[index];
+    if (!currentItem.substituteName || !currentItem.approvalDate) {
+      return;
+    }
+
+    try {
+      await update_substitute_name({
+        id: currentItem.id,
+        substituteName: currentItem.substituteName,
+      });
+      const updatedFormDataList = [...formDataList];
+      updatedFormDataList[index] = {
+        ...currentItem,
+        isSubstituteNameSaved: true,
+        isEditable: false,
+      };
+      setFormDataList(updatedFormDataList);
+      localStorage.setItem("formDataList", JSON.stringify(updatedFormDataList));
+    } catch (error) {
+      console.error("Failed to approve", error);
+    }
+  };
+
+  const handleExportExcel = () => {
+    const exportData = formDataList.map(
+      ({
+        date,
+        branch,
+        name,
+        documentType,
+        documentName,
+        kindOfStamp,
+        numberOfStamp,
+        reason,
+        approvalDate,
+        authorizer,
+        substituteName,
+      }) => ({
+        date: formatDate(date),
+        branch,
+        requester: name,
+        documentType,
+        documentName,
+        sealName: kindOfStamp,
+        numberOfStamps: numberOfStamp,
+        reason,
+        approvalDate: approvalDate ? formatDate(approvalDate) : "",
+        approver: authorizer,
+        substituteName,
+      })
+    );
+    exportToExcel(exportData);
+  };
+
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("formDataList"));
+    if (savedData) {
+      setFormDataList(savedData);
+    }
+  }, []);
 
   return (
     <div>
@@ -95,11 +135,16 @@ const Admin = () => {
           </a>
         </div>
         <div className="header-title">
-          <h1> 管理者</h1>
+          <h1>管理者</h1>
         </div>
       </header>
-      <Menu /> {/* Add the Menu component */}
+      <Menu />
       <div className="admin-container">
+        <div className="button-container">
+          <button className="export-button" onClick={handleExportExcel}>
+            <FaFileExcel size={38} />
+          </button>
+        </div>
         <div className="admin-table-container">
           <table className="admin-table">
             <thead>
@@ -114,7 +159,8 @@ const Admin = () => {
                 <th>理由</th>
                 <th>承認日</th>
                 <th>承認者</th>
-                <th>取り除く</th>
+                <th>代替者名</th>
+                <th>承認</th>
               </tr>
             </thead>
             <tbody>
@@ -134,21 +180,51 @@ const Admin = () => {
                         type="date"
                         value={formData.approvalDate || ""}
                         onChange={(event) => handleDateChange(index, event)}
-                        disabled={formData.approvalDate || formData.isApproved} // Disable if already set or approved
+                        disabled={
+                          formData.isEditable === false || formData.approvalDate
+                        }
                       />
                     </td>
                     <td>{formData.authorizer}</td>
                     <td>
-                      <FaTrash
-                        onClick={() => handleDeleteRow(index)}
-                        style={{ cursor: "pointer" }}
+                      <input
+                        type="text"
+                        value={formData.substituteName || ""}
+                        onChange={(event) =>
+                          handleSubstituteNameChange(index, event)
+                        }
+                        placeholder="Enter name"
+                        className={
+                          formData.isSubstituteNameSaved ? "greyed-out" : ""
+                        }
+                        disabled={
+                          formData.isSubstituteNameSaved ||
+                          (formData.isEditable === false &&
+                            !formData.isSubstituteNameSaved)
+                        }
                       />
+                    </td>
+                    <td>
+                      <button
+                        className={`approve-button ${
+                          formData.isSubstituteNameSaved &&
+                          formData.approvalDate
+                            ? "greyed-out"
+                            : ""
+                        }`}
+                        disabled={
+                          !formData.substituteName || !formData.approvalDate
+                        }
+                        onClick={() => handleApproveRow(index)}
+                      >
+                        承認
+                      </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="11">データなし</td>
+                  <td colSpan="12">データなし</td>
                 </tr>
               )}
             </tbody>
@@ -168,7 +244,7 @@ const AdminWithPasscode = () => {
   };
 
   const handlePasscodeSubmit = () => {
-    const correctPasscode = "12345"; // Replace with your actual passcode
+    const correctPasscode = "12345";
     if (passcode === correctPasscode) {
       setIsAuthenticated(true);
     } else {
@@ -185,7 +261,7 @@ const AdminWithPasscode = () => {
     <div className="passcode-container">
       <h2>パスコードを入力してください</h2>
       <input type="password" value={passcode} onChange={handlePasscodeChange} />
-      <button onClick={handlePasscodeSubmit}>提出する</button>
+      <button onClick={handlePasscodeSubmit}>次</button>
     </div>
   );
 };

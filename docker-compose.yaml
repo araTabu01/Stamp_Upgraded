@@ -1,19 +1,18 @@
 services:
   ara-backend:
-    image: aratabu01/stamp-backend:v1
+    image: stamp-backend:v1
+    build: ./server
     container_name: stamp-backend
-    environment:
-      DATABASE_URL: "mongodb+srv://aratabasum1503:z0CP1WgXM80lofHt@cluster0.atciubv.mongodb.net/Stamp"
-      ORIGIN1: "http://localhost:3020"
-      ORIGIN2: "http://192.168.3.69:3020"
-      PORT: 5020
+    env_file:
+      - ./.env.backend
     ports:
       - "5020:5020"
 
   frontend:
-    image: aratabu01/stamp-frontend:v1
+    image: stamp-frontend:v1
+    build: ./client
     container_name: stamp-frontend
-    environment:
-      REACT_APP_baseURL: "http://localhost:5020/"
+    env_file:
+      - ./.env.frontend
     ports:
       - "3020:3020"
