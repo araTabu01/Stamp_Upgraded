@@ -24,7 +24,7 @@ const RequestForm = () => {
 
   const [formData, setFormData] = useState({
     date: getCurrentDate(),
-    name: "",
+    name: localStorage.getItem("userName") || "", // Retrieve user name from local storage
     branch: "",
     documentType: "",
     documentName: "",
@@ -80,7 +80,7 @@ const RequestForm = () => {
 
     setFilteredAuthorizers(newAuthorizers);
     setFormData({ ...formData, authorizer: "" }); // Reset the selected authorizer when kindOfStamp changes
-  }, [kindOfStamp]);
+  }, [kindOfStamp, formData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -104,7 +104,7 @@ const RequestForm = () => {
 
     setFormData({
       date: getCurrentDate(),
-      name: "",
+      name: localStorage.getItem("userName") || "", // Reset to the logged-in user's name
       branch: "",
       documentType: "",
       documentName: "",
@@ -149,9 +149,7 @@ const RequestForm = () => {
               type="text"
               placeholder="依頼者の名前を入力してください"
               value={name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
+              readOnly // Make the name field read-only
             />
           </div>
           <div className="form-group">

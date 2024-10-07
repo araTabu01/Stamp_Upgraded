@@ -14,6 +14,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  // Assuming your login controller returns user information including 'name'
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Set submitting state to true while waiting for response
@@ -27,8 +28,9 @@ const Login = () => {
         // Assuming successful login returns the user object
         const user = response.user;
 
-        // You can optionally store user data in localStorage or state
+        // Store user data in localStorage or state
         localStorage.setItem("userId", JSON.stringify(user.id));
+        localStorage.setItem("userName", user.name); // Store the user name
 
         // Redirect to home page or perform any other action
         navigate("/request");
