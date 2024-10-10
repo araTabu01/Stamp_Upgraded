@@ -2,18 +2,14 @@ import axios from "axios";
 
 const REACT_APP_baseURL = process.env.REACT_APP_baseURL;
 
-const API = axios.create({
-  baseURL: REACT_APP_baseURL,
-  withCredentials: true, // Enable if needed
-});
+const API = axios.create({ baseURL: REACT_APP_baseURL });
 
 export const userLogin = async ({ easyproID, password }) => {
   try {
     const response = await API.post("/api/login", { easyproID, password });
     return response.data;
   } catch (error) {
-    const message = error.response?.data?.message || "Login failed";
-    throw new Error(message);
+    throw new Error(error.response.data.message);
   }
 };
 
