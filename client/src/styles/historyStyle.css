@@ -45,33 +45,35 @@ body,
 }
 
 .export-button {
-  position: absolute;
+  position: fixed; /* Fixed to stay at the top-right of the viewport */
   right: 10px;
+  top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 14px;
-  width: fit-content; /* Adjusted width */
-  top: 0.5%;
+  padding: 8px 18px;
+  width: fit-content;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 1; /* Ensure it stays above other elements */
 }
 
 .delete-button {
-  position: absolute;
+  position: absolute; /* Absolute positioning relative to the page/container */
   right: 100px;
+  top: 22px; /* Position it below Export button */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  width: fit-content; /* Adjusted width */
-  top: 0.5%;
+  padding: 9px 20px;
+  width: fit-content;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;
-  cursor: pointer; /* Ensure proper text alignment */
+  cursor: pointer;
+  z-index: 1;
 }
 
 .history-table-container {
