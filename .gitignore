@@ -1,4 +1,3 @@
-.env.backend
 .env.frontend
+.env.backend
 docker-compose.yaml
-.vscode/
