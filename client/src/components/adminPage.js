@@ -5,7 +5,7 @@ import "../styles/adminStyle.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchStamp } from "../actions/crud"; // Removed deleteStamp action
 import { formatDate } from "../utils/formatDate";
-import { update_stamp, update_substitute_name } from "../api"; // Assuming these are your API functions
+import { update_stamp, update_substitute_name } from "../api/index.js"; // Assuming these are your API functions
 import { exportToExcel } from "../utils/excelUtils";
 import Menu from "../components/Menu";
 
@@ -29,7 +29,7 @@ const Admin = () => {
       });
       setFormDataList(mergedData);
     }
-  }, [data]);
+  }, [data, formDataList]);
 
   const handleDateChange = async (index, event) => {
     const { value } = event.target;

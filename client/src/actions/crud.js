@@ -32,7 +32,7 @@ export const submitStamp = (stampData) => async (dispatch) => {
     dispatch({ type: actionType.LOADING });
     const response = await api.submit_stamp({ stampData });
 
-    dispatch({ type: actionType.SUBMIT_STAMP });
+    dispatch({ type: actionType.SUBMIT_STAMP, data: response });
   } catch (error) {
     console.log(error);
   }
