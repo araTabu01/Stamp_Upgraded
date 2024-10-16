@@ -80,7 +80,7 @@ const RequestForm = () => {
 
     setFilteredAuthorizers(newAuthorizers);
     setFormData({ ...formData, authorizer: "" }); // Reset the selected authorizer when kindOfStamp changes
-  }, [kindOfStamp, formData]);
+  }, [kindOfStamp, filteredAuthorizers, authorizerNames]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -140,21 +140,30 @@ const RequestForm = () => {
         ></div>
         <form className="request-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>日付:</label>
-            <input type="date" value={date} readOnly />
+            <label htmlFor="date">日付:</label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              aria-readonly="true"
+              readOnly
+            />
           </div>
           <div className="form-group">
-            <label>依頼者:</label>
+            <label htmlFor="name">依頼者:</label>
             <input
               type="text"
+              id="name"
               placeholder="依頼者の名前を入力してください"
               value={name}
+              aria-readonly="true"
               readOnly // Make the name field read-only
             />
           </div>
           <div className="form-group">
-            <label>種類:</label>
+            <label htmlFor="documentType">種類:</label>
             <select
+              id="documentType"
               value={documentType}
               onChange={(e) =>
                 setFormData({ ...formData, documentType: e.target.value })
@@ -169,9 +178,10 @@ const RequestForm = () => {
             </select>
           </div>
           <div className="form-group">
-            <label>書類名:</label>
+            <label htmlFor="documentName">書類名:</label>
             <input
               type="text"
+              id="documentName"
               placeholder="書類名/顧客名を入力してください"
               value={documentName}
               onChange={(e) =>
@@ -180,8 +190,9 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>印章種類:</label>
+            <label htmlFor="kindOfStamp">印章種類:</label>
             <select
+              id="kindOfStamp"
               value={kindOfStamp}
               onChange={(e) =>
                 setFormData({ ...formData, kindOfStamp: e.target.value })
@@ -196,9 +207,10 @@ const RequestForm = () => {
             </select>
           </div>
           <div className="form-group">
-            <label>押印数:</label>
+            <label htmlFor="numberOfStamp">押印数:</label>
             <input
               type="number"
+              id="numberOfStamp"
               value={numberOfStamp}
               onChange={(e) =>
                 setFormData({ ...formData, numberOfStamp: e.target.value })
@@ -206,9 +218,10 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>理由:</label>
+            <label htmlFor="reason">理由:</label>
             <input
               type="text"
+              id="reason"
               value={reason}
               onChange={(e) =>
                 setFormData({ ...formData, reason: e.target.value })
@@ -216,8 +229,9 @@ const RequestForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>押印拠点:</label>
+            <label htmlFor="branch">押印拠点:</label>
             <select
+              id="branch"
               value={branch}
               onChange={(e) =>
                 setFormData({ ...formData, branch: e.target.value })
@@ -232,8 +246,9 @@ const RequestForm = () => {
             </select>
           </div>
           <div className="form-group">
-            <label>承認者:</label>
+            <label htmlFor="authorizer">承認者:</label>
             <select
+              id="authorizer"
               value={authorizer}
               onChange={(e) =>
                 setFormData({ ...formData, authorizer: e.target.value })
@@ -257,8 +272,14 @@ const RequestForm = () => {
   );
 };
 
-export async function fetchData() {
-  // Your implementation to fetch data
+export async function getServerSideProps() {
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+  return {
+    props: {
+      apiKey,
+    },
+  };
 }
 
 export default RequestForm;

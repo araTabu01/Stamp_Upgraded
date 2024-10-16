@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "../Assets/login_backgrd.jpg";
-import { userLogin } from "../api";
+import { userLogin } from "../api/index";
 import "../styles/loginStyle.css";
 
 const Login = () => {

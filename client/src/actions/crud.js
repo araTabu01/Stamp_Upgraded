@@ -30,11 +30,17 @@ export const fetch_single_user_info = () => async (dispatch) => {
 export const submitStamp = (stampData) => async (dispatch) => {
   try {
     dispatch({ type: actionType.LOADING });
+
+    // Submit stamp data to the API
     const response = await api.submit_stamp({ stampData });
 
-    dispatch({ type: actionType.SUBMIT_STAMP, data: response });
+    // Dispatch only the serializable parts of the response (e.g., response.data)
+    dispatch({
+      type: actionType.SUBMIT_STAMP,
+      data: response.data, // Only dispatch the serializable 'data' part
+    });
   } catch (error) {
-    console.log(error);
+    console.error("Error submitting stamp data:", error);
   }
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClipboardList,
@@ -9,11 +9,22 @@ import {
   faHome, // Import the home icon
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import "../styles/menuStyle.css"; // Make sure you have the appropriate styles
+import "../styles/menuStyle.css"; // Ensure you have the appropriate styles
 
 const Menu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Use useCallback to memoize the toggle function
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    window.location.href = "/"; // Redirect after logout
+  };
+
+  // Handle closing the menu when clicking outside
   useEffect(() => {
     const handleDocumentClick = (event) => {
       if (!event.target.closest(".menu") && menuOpen) {
@@ -22,25 +33,14 @@ const Menu = () => {
     };
 
     document.addEventListener("click", handleDocumentClick);
-
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
-  }, [menuOpen]);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    window.location.href = "/";
-  };
+  }, [menuOpen]); // Only re-run if menuOpen changes
 
   return (
     <div>
       <div className="menu-icon" onClick={toggleMenu}>
-        {/* Use the FontAwesome home icon */}
         <FontAwesomeIcon icon={faHome} className="home-icon" />
       </div>
       <nav className={`menu ${menuOpen ? "open" : ""}`}>
@@ -71,7 +71,7 @@ const Menu = () => {
               }}
             >
               <FontAwesomeIcon
-                icon={faFileAlt} // Use the new icon
+                icon={faFileAlt}
                 style={{ color: "black", marginRight: "5px" }}
               />
               押印依頼をする

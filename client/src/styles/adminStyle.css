@@ -6,9 +6,6 @@ body {
   overflow-y: auto; /* Allow vertical scrolling if needed */
 }
 
-/* Add this to your existing adminStyle.css file */
-
-/* Add this to your adminStyle.css */
 .greyed-out {
   background-color: #d0d0d0; /* Light grey background */
   color: #a0a0a0; /* Grey text color */
@@ -157,24 +154,29 @@ body {
   max-width: 250px; /* Optional: Limit the maximum width of the button */
 }
 
-.approve-button:hover {
-  background-color: #4fc3f7;
+.approve-button {
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.approve-button:disabled {
-  background-color: #4fc3f7; /* Keep blue even when disabled */
+.approve-button.approved {
+  background-color: #ccc; /* Grey if approved */
+  cursor: not-allowed;
 }
 
-.approve-button:disabled:hover {
-  background-color: #ccc;
+.approve-button:not(.approved):disabled {
+  background-color: #ccc; /* Grey when disabled */
+  cursor: not-allowed;
 }
 
-.approve-button:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.approve-button:not(.approved):hover {
+  background-color: #4fc3f7; /* Darker green on hover */
 }
-.greyed-out {
-  background-color: #d3d3d3; /* Light grey background */
-  color: #fff; /* White text color */
-  cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+
+.approve-button:not(.approved):hover:not(:disabled) {
+  background-color: #4fc3f7; /* Darker green on hover when not approved */
 }

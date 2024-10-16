@@ -3,9 +3,9 @@ import { FaFileExcel } from "react-icons/fa";
 import logoImage from "../Assets/logo.png";
 import "../styles/adminStyle.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchStamp } from "../actions/crud"; // Removed deleteStamp action
+import { fetchStamp } from "../actions/crud";
 import { formatDate } from "../utils/formatDate";
-import { update_stamp, update_substitute_name } from "../api/index.js"; // Assuming these are your API functions
+import { update_stamp, update_substitute_name } from "../api/index.js";
 import { exportToExcel } from "../utils/excelUtils";
 import Menu from "../components/Menu";
 
@@ -13,12 +13,14 @@ const Admin = () => {
   const [formDataList, setFormDataList] = useState([]);
   const dispatch = useDispatch();
 
+  // Fetching stamp data
   useEffect(() => {
     dispatch(fetchStamp());
   }, [dispatch]);
 
   const data = useSelector((state) => state.crud.stampData);
 
+  // Updating local state when data changes
   useEffect(() => {
     if (data && data.length > 0) {
       const mergedData = data.map((item) => {
@@ -27,63 +29,87 @@ const Admin = () => {
         );
         return localItem ? { ...item, ...localItem } : { ...item };
       });
-      setFormDataList(mergedData);
-    }
-  }, [data, formDataList]);
 
+      // Only update state if there are changes
+      if (JSON.stringify(mergedData) !== JSON.stringify(formDataList)) {
+        setFormDataList(mergedData);
+      }
+    }
+  }, [data]); // Removed formDataList to prevent infinite loop
+
+  // Handle date change
   const handleDateChange = async (index, event) => {
     const { value } = event.target;
     const updatedFormDataList = [...formDataList];
     const currentItem = updatedFormDataList[index];
 
+    // Ensure approval date is not already set
     if (currentItem.approvalDate) {
       return;
     }
 
+    // Update approval date in state
+    updatedFormDataList[index] = {
+      ...currentItem,
+      approvalDate: value,
+    };
+    setFormDataList(updatedFormDataList); // Update state
+
     try {
-      const updatedItem = { ...currentItem, approvalDate: value };
-      await update_stamp({ id: updatedItem.id, approvalDate: value });
-      updatedFormDataList[index] = updatedItem;
-      setFormDataList(updatedFormDataList);
+      // Update approval date in backend
+      await update_stamp({ id: currentItem.id, approvalDate: value });
     } catch (error) {
       console.error("Failed to update approval date", error);
     }
   };
 
+  // Handle substitute name change
   const handleSubstituteNameChange = (index, event) => {
     const { value } = event.target;
     const updatedFormDataList = [...formDataList];
     const currentItem = updatedFormDataList[index];
-    if (!currentItem.isSubstituteNameSaved) {
-      updatedFormDataList[index] = { ...currentItem, substituteName: value };
-      setFormDataList(updatedFormDataList);
-    }
+
+    // Update substitute name in state
+    updatedFormDataList[index] = {
+      ...currentItem,
+      substituteName: value,
+      isSubstituteNameSaved: false, // Mark as unsaved
+    };
+    setFormDataList(updatedFormDataList); // Update state
   };
 
+  // Approve row
   const handleApproveRow = async (index) => {
     const currentItem = formDataList[index];
+
+    // Check if both fields are filled
     if (!currentItem.substituteName || !currentItem.approvalDate) {
       return;
     }
 
     try {
+      // Update substitute name in backend
       await update_substitute_name({
         id: currentItem.id,
         substituteName: currentItem.substituteName,
       });
+
+      // Mark substitute name as saved and make fields non-editable
       const updatedFormDataList = [...formDataList];
       updatedFormDataList[index] = {
         ...currentItem,
         isSubstituteNameSaved: true,
         isEditable: false,
+        isApproved: true, // Mark as approved
       };
-      setFormDataList(updatedFormDataList);
+      setFormDataList(updatedFormDataList); // Update state
       localStorage.setItem("formDataList", JSON.stringify(updatedFormDataList));
     } catch (error) {
       console.error("Failed to approve", error);
     }
   };
 
+  // Export to Excel
   const handleExportExcel = () => {
     const exportData = formDataList.map(
       ({
@@ -115,12 +141,19 @@ const Admin = () => {
     exportToExcel(exportData);
   };
 
+  // Load saved data from local storage
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("formDataList"));
     if (savedData) {
       setFormDataList(savedData);
     }
   }, []);
+
+  // Helper function to format approval date for input
+  const formatApprovalDate = (date) => {
+    if (!date) return "";
+    return date.split("T")[0]; // Get only the date part
+  };
 
   return (
     <div>
@@ -166,7 +199,7 @@ const Admin = () => {
             <tbody>
               {formDataList && formDataList.length > 0 ? (
                 formDataList.map((formData, index) => (
-                  <tr key={index}>
+                  <tr key={formData.id}>
                     <td>{formatDate(formData.date)}</td>
                     <td>{formData.branch}</td>
                     <td>{formData.name}</td>
@@ -178,11 +211,9 @@ const Admin = () => {
                     <td>
                       <input
                         type="date"
-                        value={formData.approvalDate || ""}
+                        value={formatApprovalDate(formData.approvalDate) || ""}
                         onChange={(event) => handleDateChange(index, event)}
-                        disabled={
-                          formData.isEditable === false || formData.approvalDate
-                        }
+                        disabled={formData.approvalDate !== null}
                       />
                     </td>
                     <td>{formData.authorizer}</td>
@@ -193,29 +224,21 @@ const Admin = () => {
                         onChange={(event) =>
                           handleSubstituteNameChange(index, event)
                         }
-                        placeholder="Enter name"
-                        className={
+                        placeholder="代替者名" // Placeholder for visibility
+                        className={`substitute-input ${
                           formData.isSubstituteNameSaved ? "greyed-out" : ""
-                        }
-                        disabled={
-                          formData.isSubstituteNameSaved ||
-                          (formData.isEditable === false &&
-                            !formData.isSubstituteNameSaved)
-                        }
+                        }`}
+                        disabled={formData.isSubstituteNameSaved}
                       />
                     </td>
                     <td>
                       <button
-                        className={`approve-button ${
-                          formData.isSubstituteNameSaved &&
-                          formData.approvalDate
-                            ? "greyed-out"
-                            : ""
-                        }`}
-                        disabled={
-                          !formData.substituteName || !formData.approvalDate
-                        }
+                        className="approve-button"
                         onClick={() => handleApproveRow(index)}
+                        disabled={formData.isEditable}
+                        style={{
+                          backgroundColor: formData.isApproved ? "grey" : "",
+                        }} // Set grey color if approved
                       >
                         承認
                       </button>
@@ -224,7 +247,7 @@ const Admin = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="12">データなし</td>
+                  <td colSpan="12">データがありません</td>
                 </tr>
               )}
             </tbody>
@@ -253,15 +276,22 @@ const AdminWithPasscode = () => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Admin />;
-  }
-
   return (
-    <div className="passcode-container">
-      <h2>パスコードを入力してください</h2>
-      <input type="password" value={passcode} onChange={handlePasscodeChange} />
-      <button onClick={handlePasscodeSubmit}>次</button>
+    <div>
+      {isAuthenticated ? (
+        <Admin />
+      ) : (
+        <div className="passcode-container">
+          <h2>管理者パスコードを入力してください:</h2>
+          <input
+            type="password"
+            value={passcode}
+            onChange={handlePasscodeChange}
+            placeholder="パスコード"
+          />
+          <button onClick={handlePasscodeSubmit}>送信</button>
+        </div>
+      )}
     </div>
   );
 };
