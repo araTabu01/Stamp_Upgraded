@@ -80,7 +80,7 @@ const RequestForm = () => {
 
     setFilteredAuthorizers(newAuthorizers);
     setFormData({ ...formData, authorizer: "" }); // Reset the selected authorizer when kindOfStamp changes
-  }, [kindOfStamp, filteredAuthorizers, authorizerNames]);
+  }, [kindOfStamp, authorizerNames]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

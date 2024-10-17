@@ -368,7 +368,7 @@ const documentTypes = [
   "その他",
 ];
 
-const stamps = ["管理者", "実印", "銀行印", "認印", "角印"];
+const stamps = ["実印", "銀行印", "認印", "角印"];
 const authorizerNames = [
   "田中秀範",
   "筧光能",
