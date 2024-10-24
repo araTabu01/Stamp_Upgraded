@@ -70,8 +70,14 @@ const RequestForm = () => {
         ];
         break;
       case "管理者":
-      case "角印":
         newAuthorizers = authorizerNames;
+        break;
+      case "角印":
+        newAuthorizers = [
+          ...authorizerNames, // include existing authorizers
+          "江崎千沙",
+          "清水智佳子",
+        ];
         break;
       default:
         newAuthorizers = authorizerNames;

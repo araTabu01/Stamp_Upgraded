@@ -3,6 +3,7 @@ body,
 #root {
   height: 100%;
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -28,6 +29,7 @@ body,
   font-size: 24px;
   color: #333;
 }
+
 .history-page-container {
   height: 100%;
   overflow-y: auto;
@@ -45,9 +47,9 @@ body,
 }
 
 .export-button {
-  position: fixed; /* Fixed to stay at the top-right of the viewport */
+  position: absolute; /* Fixed to stay at the top-right of the viewport */
   right: 10px;
-  top: 10px;
+  top: 10px; /* Added top padding to avoid clashing */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +65,7 @@ body,
 .delete-button {
   position: absolute; /* Absolute positioning relative to the page/container */
   right: 100px;
-  top: 22px; /* Position it below Export button */
+  top: 21px; /* Position it below Export button */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,7 +79,7 @@ body,
 }
 
 .history-table-container {
-  margin-top: 50px; /* Adjust top margin to avoid overlap with the logos */
+  margin-top: 90px; /* Increased top margin to create more space below the buttons */
 }
 
 .history-table {

@@ -238,7 +238,7 @@ const Admin = () => {
                         disabled={formData.isEditable}
                         style={{
                           backgroundColor: formData.isApproved ? "grey" : "",
-                        }} // Set grey color if approved
+                        }}
                       >
                         承認
                       </button>
