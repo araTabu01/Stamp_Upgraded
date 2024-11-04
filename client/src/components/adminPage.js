@@ -91,21 +91,19 @@ const Admin = () => {
     async (index) => {
       const currentItem = formDataList[index];
 
-      // Ensure both fields are filled before approving
-      if (!currentItem.substituteName || !currentItem.approvalDate) {
-        alert("Please fill in all required fields before approving.");
-        return;
-      }
-
       try {
-        await update_substitute_name({
-          id: currentItem.id,
-          substituteName: currentItem.substituteName,
-        });
+        if (currentItem.substituteName) {
+          // Update substitute name in backend only if it's provided
+          await update_substitute_name({
+            id: currentItem.id,
+            substituteName: currentItem.substituteName,
+          });
+        }
 
         const updatedFormDataList = [...formDataList];
         updatedFormDataList[index] = { ...currentItem, isApproved: true };
         setFormDataList(updatedFormDataList);
+
         // Save updated state to localStorage to persist on refresh
         localStorage.setItem(
           "formDataList",
