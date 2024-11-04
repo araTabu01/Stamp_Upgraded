@@ -26,7 +26,6 @@ const App = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/request" element={<RequestForm />} />
         <Route path="/history" element={<History />} />
-
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>

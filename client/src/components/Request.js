@@ -74,9 +74,10 @@ const RequestForm = () => {
         break;
       case "角印":
         newAuthorizers = [
-          ...authorizerNames, // include existing authorizers
-          "江崎千沙",
-          "清水智佳子",
+          ...new Set([
+            ...authorizerNames, // include existing authorizers
+            "清水智佳子",
+          ]),
         ];
         break;
       default:

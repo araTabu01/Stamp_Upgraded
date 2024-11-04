@@ -47,25 +47,24 @@ body,
 }
 
 .export-button {
-  position: absolute; /* Fixed to stay at the top-right of the viewport */
+  position: absolute;
   right: 10px;
-  top: 10px; /* Added top padding to avoid clashing */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 18px;
-  width: fit-content;
+  padding: 4px 14px;
+  width: fit-content; /* Adjusted width */
+  top: 0.3%;
   background: linear-gradient(135deg, #4fc3f7, #29b6f6);
   color: white;
   border-radius: 5px;
-  cursor: pointer;
-  z-index: 1; /* Ensure it stays above other elements */
+  cursor: pointer; /* Ensure it stays above other elements */
 }
 
 .delete-button {
   position: absolute; /* Absolute positioning relative to the page/container */
   right: 100px;
-  top: 21px; /* Position it below Export button */
+  top: 0.3%; /* Position it below Export button */
   display: flex;
   align-items: center;
   justify-content: center;

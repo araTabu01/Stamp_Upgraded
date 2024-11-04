@@ -26,7 +26,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-
 .button-disabled {
   background-color: #d0d0d0; /* Light grey background */
   color: #a0a0a0; /* Grey text color */
@@ -179,4 +178,27 @@ body {
 
 .approve-button:not(.approved):hover:not(:disabled) {
   background-color: #4fc3f7; /* Darker green on hover when not approved */
+}
+/* Styles for the dropdown container */
+.dropdown-container {
+  position: absolute; /* Use absolute positioning */
+  top: 10px; /* Adjust top offset */
+  left: 10px; /* Adjust left offset */
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Styles for the select element */
+.dropdown-container select {
+  padding: 15px; /* Add some padding for better appearance */
+  border: 1px solid #ccc; /* Set a border color */
+  border-radius: 4px; /* Add rounded corners */
+  font-size: 16px; /* Set the font size */
+  background-color: #fff; /* Set background color */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: border-color 0.3s; /* Add transition for border color on focus */
+}
+
+.dropdown-container select:focus {
+  border-color: black; /* Change border color on focus */
+  outline: none; /* Remove outline */
 }

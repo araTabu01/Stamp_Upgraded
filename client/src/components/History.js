@@ -104,34 +104,39 @@ const History = () => {
             </thead>
             <tbody>
               {Array.isArray(data) && data.length > 0 ? (
-                data.map((formData, index) => (
-                  <tr key={index}>
-                    <td>{formatDate(formData.date)}</td>
-                    <td>{formData.branch}</td>
-                    <td>{formData.name}</td>
-                    <td>{formData.documentType}</td>
-                    <td>{formData.documentName}</td>
-                    <td>{formData.kindOfStamp}</td>
-                    <td>{formData.numberOfStamp}</td>
-                    <td>{formData.reason}</td>
-                    <td>
-                      {formData.approvalDate
-                        ? formatDate(formData.approvalDate)
-                        : ""}
-                    </td>
-                    <td>{formData.authorizer}</td>
-                    <td>{formData.substituteName || "なし"}</td>{" "}
-                    {/* Display Substitute Name */}
-                    <td>{formData.approvalDate ? "✅" : "❎"}</td>
-                    {toggleDelete && (
-                      <th>
-                        <button onClick={() => handleDelete(formData.id)}>
-                          X
-                        </button>
-                      </th>
-                    )}
-                  </tr>
-                ))
+                [...data].reverse().map(
+                  (
+                    formData,
+                    index // Reverse list to show latest requests at the top
+                  ) => (
+                    <tr key={index}>
+                      <td>{formatDate(formData.date)}</td>
+                      <td>{formData.branch}</td>
+                      <td>{formData.name}</td>
+                      <td>{formData.documentType}</td>
+                      <td>{formData.documentName}</td>
+                      <td>{formData.kindOfStamp}</td>
+                      <td>{formData.numberOfStamp}</td>
+                      <td>{formData.reason}</td>
+                      <td>
+                        {formData.approvalDate
+                          ? formatDate(formData.approvalDate)
+                          : ""}
+                      </td>
+                      <td>{formData.authorizer}</td>
+                      <td>{formData.substituteName || "なし"}</td>{" "}
+                      {/* Display Substitute Name */}
+                      <td>{formData.approvalDate ? "✅" : "❎"}</td>
+                      {toggleDelete && (
+                        <th>
+                          <button onClick={() => handleDelete(formData.id)}>
+                            X
+                          </button>
+                        </th>
+                      )}
+                    </tr>
+                  )
+                )
               ) : (
                 <tr>
                   <td colSpan="12">データなし</td>

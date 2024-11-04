@@ -382,6 +382,7 @@ const authorizerNames = [
   "山根正人",
   "中野訓子",
   "冨田幸弘",
+  "江崎千紗",
 ];
 module.exports = {
   branches,
