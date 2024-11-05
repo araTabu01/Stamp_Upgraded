@@ -40,7 +40,6 @@ const Admin = () => {
       const updatedFormDataList = [...formDataList];
       const currentItem = updatedFormDataList[index];
 
-      // Prevent editing if already approved
       if (currentItem.approvalDate || currentItem.isApproved) {
         return;
       }
@@ -49,9 +48,7 @@ const Admin = () => {
       setFormDataList(updatedFormDataList);
 
       try {
-        // Update approval date in backend
         await update_stamp({ id: currentItem.id, approvalDate: value });
-        // Persist state to localStorage
         localStorage.setItem(
           "formDataList",
           JSON.stringify(updatedFormDataList)
@@ -69,7 +66,6 @@ const Admin = () => {
       const updatedFormDataList = [...formDataList];
       const currentItem = updatedFormDataList[index];
 
-      // Allow editing substitute name only if not approved
       if (!currentItem.isApproved) {
         updatedFormDataList[index] = {
           ...currentItem,
@@ -77,7 +73,6 @@ const Admin = () => {
           isSubstituteNameSaved: false,
         };
         setFormDataList(updatedFormDataList);
-        // Persist state to localStorage
         localStorage.setItem(
           "formDataList",
           JSON.stringify(updatedFormDataList)
@@ -93,7 +88,6 @@ const Admin = () => {
 
       try {
         if (currentItem.substituteName) {
-          // Update substitute name in backend only if it's provided
           await update_substitute_name({
             id: currentItem.id,
             substituteName: currentItem.substituteName,
@@ -101,10 +95,13 @@ const Admin = () => {
         }
 
         const updatedFormDataList = [...formDataList];
-        updatedFormDataList[index] = { ...currentItem, isApproved: true };
+        updatedFormDataList[index] = {
+          ...currentItem,
+          isApproved: true,
+          approvalStatus: "承認済",
+        };
         setFormDataList(updatedFormDataList);
 
-        // Save updated state to localStorage to persist on refresh
         localStorage.setItem(
           "formDataList",
           JSON.stringify(updatedFormDataList)
@@ -116,7 +113,6 @@ const Admin = () => {
     [formDataList]
   );
 
-  // Load state from localStorage on component mount
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("formDataList"));
     if (savedData) {
@@ -129,7 +125,7 @@ const Admin = () => {
     : formDataList;
 
   const sortedFilteredData = filteredData
-    .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort by date, latest first
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
     .sort((a, b) => {
       const aApproved = a.isApproved ? 1 : 0;
       const bApproved = b.isApproved ? 1 : 0;
@@ -182,7 +178,6 @@ const Admin = () => {
     "冨田幸弘",
   ];
 
-  // Always display these names in the dropdown
   const uniqueNames = [...new Set(requiredNames), "江崎千紗"];
 
   return (
@@ -209,7 +204,6 @@ const Admin = () => {
           </button>
         </div>
         <div>
-          {/* Other components remain the same */}
           <div className="dropdown-container">
             <select
               onChange={(event) => setSelectedName(event.target.value)}
@@ -223,7 +217,6 @@ const Admin = () => {
               ))}
             </select>
           </div>
-          {/* The rest of your code continues... */}
         </div>
 
         <div className="admin-table-container">
@@ -275,17 +268,20 @@ const Admin = () => {
                         disabled={formData.isApproved}
                       />
                     </td>
-                    <td>
-                      <button
-                        className="approve-button"
-                        onClick={() => handleApproveRow(index)}
-                        disabled={formData.isEditable}
-                        style={{
-                          backgroundColor: formData.isApproved ? "grey" : "",
-                        }}
-                      >
-                        承認
-                      </button>
+                    <td style={{ textAlign: "center" }}>
+                      {formData.isApproved ? (
+                        <span style={{ color: "grey" }}>承認済</span>
+                      ) : (
+                        <button
+                          className="approve-button"
+                          onClick={() => handleApproveRow(index)}
+                          style={{
+                            backgroundColor: formData.isApproved ? "grey" : "",
+                          }}
+                        >
+                          承認
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))
