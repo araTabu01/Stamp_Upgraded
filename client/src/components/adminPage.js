@@ -40,7 +40,7 @@ const Admin = () => {
       const updatedFormDataList = [...formDataList];
       const currentItem = updatedFormDataList[index];
 
-      if (currentItem.approvalDate || currentItem.isApproved) {
+      if (currentItem.isApproved && !currentItem.isEditing) {
         return;
       }
 
@@ -99,6 +99,7 @@ const Admin = () => {
           ...currentItem,
           isApproved: true,
           approvalStatus: "承認済",
+          isEditing: false,
         };
         setFormDataList(updatedFormDataList);
 
@@ -254,7 +255,7 @@ const Admin = () => {
                         type="date"
                         value={formData.approvalDate || ""}
                         onChange={(event) => handleDateChange(index, event)}
-                        disabled={formData.isApproved}
+                        disabled={formData.isApproved && !formData.isEditing}
                       />
                     </td>
                     <td>{formData.authorizer}</td>
@@ -275,9 +276,6 @@ const Admin = () => {
                         <button
                           className="approve-button"
                           onClick={() => handleApproveRow(index)}
-                          style={{
-                            backgroundColor: formData.isApproved ? "grey" : "",
-                          }}
                         >
                           承認
                         </button>
@@ -287,7 +285,9 @@ const Admin = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={12}>該当データがありません</td>
+                  <td colSpan="12" style={{ textAlign: "center" }}>
+                    データがありません
+                  </td>
                 </tr>
               )}
             </tbody>
